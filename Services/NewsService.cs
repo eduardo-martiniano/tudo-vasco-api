@@ -7,7 +7,7 @@ namespace tudo_vasco_api.Services
     public class NewsService : INewsService
     {
         private readonly string BASE_URL = "https://www.netvasco.com.br";
-        public async Task<List<News>> GetNews()
+        public async Task<List<News>> GetNews(bool onlyImportant)
         {
             var content = string.Empty;
             using (WebClient client = new WebClient())
@@ -16,46 +16,27 @@ namespace tudo_vasco_api.Services
             }
 
             content = content.Split("<div class=\"manchetes\">")[1];
+            content = content.Split("</ul><span id=\"data")[0];
 
             var contentList = content.Split("\n");
 
             contentList = contentList.Where(c => c.Contains("</li>")).ToArray();
-            var listaDeNoticias = new List<News>();
+            var newsList = new List<News>();
 
-
-            foreach (var item in contentList)
+            Array.ForEach(contentList, c =>
             {
                 try
                 {
-                    listaDeNoticias.Add(new News
-                    {
-                        Title = GetTiTle(item),
-                        Hour = GetHour(item),
-                        LearnMoreUrl = GetLearnMoreUrl(item)
-                    });
+                    newsList.Add(new News(c));
                 }
 
                 catch (Exception) { }
+            });
 
-            }
+            if (onlyImportant)
+                return newsList.Where(n => n.ImportantNews).ToList();
 
-            return listaDeNoticias;
-        }
-
-        private string GetHour(string content)
-        {
-            return content.Replace(" ", "").Split("<spanclass=\"noticia-hora\">")[1].Split("<")[0];
-        }
-
-        private string GetTiTle(string content)
-        {
-            return content.Split("</span>")[1].Split(";")[1].Replace("</a></li>", "").Replace("'", "");
-        }
-
-        private string GetLearnMoreUrl(string content)
-        {
-            var url = $"{BASE_URL}/n/{content.Split("n/")[1].Split(">")[0].Replace("</a></li>", "")}";
-            return url;
+            return newsList;
         }
     }
 }

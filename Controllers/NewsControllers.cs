@@ -14,10 +14,9 @@ namespace tudo_vasco_api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetNews()
+        public async Task<IActionResult> GetNews([FromQuery] bool onlyImportant = false)
         {
-            var news = await _newsService.GetNews();
-            return Ok(news);
+            return Ok(await _newsService.GetNews(onlyImportant));
         }
 
     }
