@@ -14,11 +14,11 @@ namespace Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var urlDb = "ec2-44-193-178-122.compute-1.amazonaws.com";
-            var user = "boeievfuqlbubs";
-            var password = "33825fdc64e6871c72e5920af7c1ee0ad7adbc60813360796943e721b0f8f179";
-            var db = "d5iip84lgg5iht";
-            var port = "5432";
+            var urlDb = "";
+            var user = "";
+            var password = "";
+            var db = "";
+            var port = "";
             optionsBuilder.UseNpgsql($"Host={urlDb};Port={port};Username={user};Password={password};Database={db};");
         }
 

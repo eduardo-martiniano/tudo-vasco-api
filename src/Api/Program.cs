@@ -1,5 +1,6 @@
 using Application.Commands.AddUser;
 using Domain.Interfaces;
+using Domain.Services;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using MediatR;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<Context>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<INewsService, NewsService>();
 builder.Services.AddMediatR(typeof(AddUserCommand));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
