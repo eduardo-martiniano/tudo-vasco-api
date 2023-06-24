@@ -13,17 +13,22 @@ namespace Application.Tests.Fixtures
     {
         public User GenerateUserValid()
         {
+            return GenerateListUserValid(1).First();
+        }
+
+        public List<User> GenerateListUserValid(int count)
+        {
             var gender = new Faker().PickRandom<Name.Gender>();
-            
+
             var user = new Faker<User>("pt_BR")
-                .CustomInstantiator(f => 
-                    new User(f.UniqueIndex, 
-                    f.Name.FullName(), 
-                    f.Random.Replace("######"), 
-                    DateTime.Now.AddMinutes(-30), 
+                .CustomInstantiator(f =>
+                    new User(f.UniqueIndex,
+                    f.Name.FullName(),
+                    f.Random.Replace("######"),
+                    DateTime.Now.AddMinutes(-30),
                     true));
-            
-            return user;
+
+            return user.Generate(count);
         }
 
         public User GenerateUserInValid()

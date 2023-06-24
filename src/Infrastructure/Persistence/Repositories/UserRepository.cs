@@ -28,6 +28,11 @@ namespace Infrastructure.Persistence.Repositories
 
         }
 
+        public async Task<List<User>> FindAllAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<User> FindByTelegramIdAsync(string telegramId)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.TelegramId == telegramId);

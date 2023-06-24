@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     {
         Task AddAsync(User user);
         Task<User> FindByTelegramIdAsync(string telegramId);
+        Task<List<User>> FindAllAsync();
     }
 }
