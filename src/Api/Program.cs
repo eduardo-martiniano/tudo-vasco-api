@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Application.Commands.AddUser;
 using Domain.Interfaces;
 using Domain.Services;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddSingleton<Context>();
+builder.Services.AddScoped<Context>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<INewsService, NewsService>();
 builder.Services.AddMediatR(typeof(AddUserCommand));
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -2,11 +2,9 @@
 
 namespace Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
-        Task AddUser(User user);
-        Task SaveChanges();
-        Task<List<User>> ListUsers();
-        Task<User> GetUserByTelegramId(string telegramId);
+        Task AddAsync(User user);
+        Task<User> FindByTelegramIdAsync(string telegramId);
     }
 }

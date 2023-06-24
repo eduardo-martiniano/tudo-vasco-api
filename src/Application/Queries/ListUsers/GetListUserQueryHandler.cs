@@ -19,9 +19,11 @@ namespace Application.Queries.ListUsers
 
         public async Task<List<UserDto>> Handle(GetListUsersQuery query, CancellationToken cancellationToken)
         {
-            var users = (await _userRepository.ListUsers()).Select(u => new UserDto(u)).ToList();
+            //var users = (await _userRepository.ListUsers()).Select(u => new UserDto(u)).ToList();
 
-            return await Task.FromResult(users);
+            //return await Task.FromResult(users);
+
+            return null;
         }
     }
 }

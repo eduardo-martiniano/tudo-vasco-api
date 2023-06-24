@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -18,25 +13,24 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddUser(User user)
+        public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
-            await SaveChanges();
         }
 
-        public async Task<User> GetUserByTelegramId(string telegramId)
+        public async Task<bool> Commit()
         {
-            return await _context.Users.Where(u => u.TelegramId == telegramId).FirstOrDefaultAsync();
+            return await _context.Commit();
         }
 
-        public async Task<List<User>> ListUsers()
+        public void Dispose()
         {
-            return await _context.Users.ToListAsync();
+
         }
 
-        public async Task SaveChanges()
+        public async Task<User> FindByTelegramIdAsync(string telegramId)
         {
-            await _context.SaveChangesAsync();
+            return await _context.Users.FirstOrDefaultAsync(u => u.TelegramId == telegramId);
         }
     }
 }

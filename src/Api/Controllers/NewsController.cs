@@ -1,7 +1,6 @@
 ﻿using Application.Queries.ListNews;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Api.Controllers
 {

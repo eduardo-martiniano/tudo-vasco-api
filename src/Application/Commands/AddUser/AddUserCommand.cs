@@ -1,4 +1,6 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces;
+using FluentValidation.Results;
 using MediatR;
 
 namespace Application.Commands.AddUser
@@ -9,14 +11,23 @@ namespace Application.Commands.AddUser
         public string TelegramId { get; set; }
         public bool ReceiveOnlyImportant { get; set; }
 
-        public User Map()
+        public AddUserCommand(string name, string telegramId, bool receiveOnlyImportant)
         {
-            return new User
-            {
-                Name = Name,
-                TelegramId = TelegramId,
-                ReceiveOnlyImportant = ReceiveOnlyImportant
-            };
+            Name = name;
+            TelegramId = telegramId;
+            ReceiveOnlyImportant = receiveOnlyImportant;
+        }
+
+        public AddUserCommand() { }
+
+        public ValidationResult Validate(IUserRepository userRepository)
+        {
+            return new AddUserCommandValidator(userRepository).Validate(this);
+        }
+
+        public User MapToEntity()
+        {
+            return new User(0, Name, TelegramId, null, ReceiveOnlyImportant);
         }
     }
 }
