@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:54981",
-      "sslPort": 44382
+      "applicationUrl": "http://localhost:47480",
+      "sslPort": 44371
     }
   },
   "profiles": {
-    "tudo_vasco_api": {
+    "Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7250;http://localhost:5250",
+      "applicationUrl": "https://localhost:7216;http://localhost:5216",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

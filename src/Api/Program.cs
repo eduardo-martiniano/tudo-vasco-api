@@ -1,11 +1,20 @@
-using tudo_vasco_api.Interfaces;
-using tudo_vasco_api.Services;
+using Api.Middlewares;
+using Application.Commands.AddUser;
+using Domain.Interfaces;
+using Domain.Services;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Repositories;
+using MediatR;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<Context>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<INewsService, NewsService>();
+builder.Services.AddMediatR(typeof(AddUserCommand));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

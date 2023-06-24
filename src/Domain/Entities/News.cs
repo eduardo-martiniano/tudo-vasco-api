@@ -1,4 +1,10 @@
-﻿namespace tudo_vasco_api.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domain.Entities
 {
     public class News
     {

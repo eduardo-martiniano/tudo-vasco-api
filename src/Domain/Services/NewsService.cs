@@ -1,13 +1,13 @@
-﻿using System.Net;
-using tudo_vasco_api.Interfaces;
-using tudo_vasco_api.Models;
+﻿using Domain.Entities;
+using Domain.Interfaces;
+using System.Net;
 
-namespace tudo_vasco_api.Services
+namespace Domain.Services
 {
     public class NewsService : INewsService
     {
         private readonly string BASE_URL = "https://www.netvasco.com.br";
-        public async Task<List<News>> GetNews(bool onlyImportant)
+        public async Task<IList<News>> GetNews(bool onlyImportant)
         {
             var content = string.Empty;
             using (WebClient client = new WebClient())
@@ -38,5 +38,6 @@ namespace tudo_vasco_api.Services
 
             return newsList;
         }
+
     }
 }
